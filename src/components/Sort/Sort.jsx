@@ -1,6 +1,7 @@
 import React from "react";
 import { setSortType } from "../../redux/slice/filterSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { selectSort } from "../../redux/slice/filterSlice";
 
 export const listSort = [
   { name: "популярности (ASK)", sortProperty: "rating" },
@@ -16,7 +17,7 @@ export const Sort = () => {
   const dispatch = useDispatch();
   const sortRef = React.useRef();
 
-  const sortType = useSelector((state) => state.filter.sortType);
+  const sortType = useSelector(selectSort);
 
   const handleChangeClick = (obj) => {
     dispatch(setSortType(obj));

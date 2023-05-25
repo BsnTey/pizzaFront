@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { setCurrentPage, setFilters } from "../redux/slice/filterSlice";
 import { listSort } from "../components/Sort/Sort";
 import { fetchPizza } from "../redux/slice/pizzaSlice";
+import { selectPizza } from "../redux/slice/pizzaSlice";
+import { selectFilter } from "../redux/slice/filterSlice";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -19,8 +21,8 @@ export const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { categoryId, sortType, searchValue, currentPage } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.pizza);
+  const { categoryId, sortType, searchValue, currentPage } = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizza);
 
   React.useEffect(() => {
     if (window.location.search && !isMounted) {
