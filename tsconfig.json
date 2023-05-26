@@ -19,9 +19,9 @@
     "noUnusedLocals": true,
     "noImplicitAny": true,
     "downlevelIteration": true,
-    "baseUrl": "./",
+    // "baseUrl": "./",
     "paths": {
-      "~/*": ["src/*"],
+      // "~/*": ["src/*"],
       "@turn/styled": ["src/styled"]
     },
     "noUnusedParameters": true,

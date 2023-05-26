@@ -1,8 +1,8 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import filterSlice from "./slice/filterSlice";
-import cartSlice from "./slice/cartSlice";
-import pizzaSlice from "./slice/pizzaSlice";
+import filterSlice from "./filter/slice";
+import pizzaSlice from "./pizza/slice";
+import cartSlice from "./cart/slice";
 
 export const store = configureStore({
   reducer: {

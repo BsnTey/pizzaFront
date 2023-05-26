@@ -1,24 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { ICartItem, ICartSlice } from "./types";
+import { getCartFromLS } from "../../utils/getCartFromLS";
+import { calcTotalPrice } from "../../utils/calcTotalPrice";
 
-export type ICartItem = {
-  id: string;
-  imageUrl: string;
-  title: string;
-  type: number;
-  size: number;
-  price: number;
-  quantity: number;
-};
-
-export interface ICartSlice {
-  totalPrice: number;
-  items: ICartItem[];
-}
+const { items, totalPrice } = getCartFromLS();
 
 const initialState: ICartSlice = {
-  totalPrice: 0,
-  items: [],
+  items: items,
+  totalPrice: totalPrice,
 };
 
 const findItemOnCart = (state: ICartSlice, action: PayloadAction<ICartItem>) => {
@@ -33,10 +22,6 @@ const deleteItemOnCart = (state: ICartSlice, action: PayloadAction<ICartItem>) =
   });
 };
 
-const totalPriceCalc = (state: ICartSlice) => {
-  return state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-};
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -46,7 +31,7 @@ export const cartSlice = createSlice({
 
       findItem ? findItem.quantity++ : state.items.push({ ...action.payload, quantity: 1 });
 
-      state.totalPrice = totalPriceCalc(state);
+      state.totalPrice = calcTotalPrice(state.items);
     },
     removeItemQuantity: (state, action: PayloadAction<ICartItem>) => {
       const findItem = findItemOnCart(state, action);
@@ -58,13 +43,13 @@ export const cartSlice = createSlice({
           findItem.quantity--;
         }
 
-        state.totalPrice = totalPriceCalc(state);
+        state.totalPrice = calcTotalPrice(state.items);
       }
     },
 
     removeItems: (state, action: PayloadAction<ICartItem>) => {
       state.items = deleteItemOnCart(state, action);
-      state.totalPrice = totalPriceCalc(state);
+      state.totalPrice = calcTotalPrice(state.items);
     },
 
     clearItems: (state) => {
@@ -73,9 +58,6 @@ export const cartSlice = createSlice({
     },
   },
 });
-
-export const selectCart = (state: RootState) => state.cart;
-export const selectCartItemById = (id: string) => (state: RootState) => state.cart.items.find((el) => el.id === id);
 
 export const { addItem, removeItemQuantity, removeItems, clearItems } = cartSlice.actions;
 

@@ -1,9 +1,8 @@
 import React from "react";
-import { setSortBy } from "../../redux/slice/filterSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSort } from "../../redux/slice/filterSlice";
-import { IsortBy } from "../../redux/slice/filterSlice";
-import { sortPropertyEnum } from "../../redux/slice/filterSlice";
+import { setSortBy, sortPropertyEnum } from "../../redux/filter/slice";
+import { IsortBy } from "../../redux/filter/types";
+import { selectSort } from "../../redux/filter/selectors";
 
 export const listSort: IsortBy[] = [
   { name: "популярности (ASK)", sortProperty: sortPropertyEnum.PRICE_ASK },
@@ -14,7 +13,7 @@ export const listSort: IsortBy[] = [
   { name: "алфавиту (DESK)", sortProperty: sortPropertyEnum.TITLE_DESK },
 ];
 
-export const Sort: React.FC = () => {
+export const Sort: React.FC = React.memo(() => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const dispatch = useDispatch();
   const sortRef = React.useRef<HTMLDivElement>(null);
@@ -67,4 +66,4 @@ export const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
