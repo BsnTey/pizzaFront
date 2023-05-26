@@ -2,12 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, removeItems, removeItemQuantity } from "../../redux/slice/cartSlice";
 import { typesPizaa } from "../PizzaBlock/PizzaBlock";
+import { ICartItem } from "../../redux/slice/cartSlice";
 
-export const CartItem = ({ id, imageUrl, title, price, size, type, quantity }) => {
+export const CartItem: React.FC<ICartItem> = ({ id, imageUrl, title, price, size, type, quantity }) => {
   const dispatch = useDispatch();
 
   const onClickAdd = () => {
-    dispatch(addItem({ id, imageUrl, title, price, type, size }));
+    dispatch(addItem({ id, imageUrl, title, price, type, size, quantity }));
   };
 
   const onMinusQuantity = () => {
@@ -15,7 +16,7 @@ export const CartItem = ({ id, imageUrl, title, price, size, type, quantity }) =
   };
 
   const onDeleteItems = () => {
-    dispatch(removeItems({ id, imageUrl, title, price, type, size }));
+    dispatch(removeItems({ id, imageUrl, title, price, type, size, quantity }));
   };
 
   return (

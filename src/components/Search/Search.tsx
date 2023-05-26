@@ -5,16 +5,16 @@ import { setSearch } from "../../redux/slice/filterSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { selectFilter } from "../../redux/slice/filterSlice";
 
-export const Search = () => {
+export const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const focus = React.useRef();
+  const focus = React.useRef<HTMLInputElement>(null);
   const { searchValue } = useSelector(selectFilter);
   const [inputValueTmp, setInputValueTmp] = React.useState("");
 
   const onClickClear = () => {
     dispatch(setSearch(""));
     setInputValueTmp("");
-    focus.current.focus();
+    focus.current?.focus();
   };
 
   const debouncedChangeHandler = React.useCallback(
@@ -24,9 +24,9 @@ export const Search = () => {
     []
   );
 
-  const onChangeSearch = (value) => {
-    setInputValueTmp(value);
-    debouncedChangeHandler(value);
+  const onChangeSearch = (value: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValueTmp(value.target.value);
+    debouncedChangeHandler(value.target.value);
   };
 
   return (
@@ -37,7 +37,7 @@ export const Search = () => {
           id="XMLID_223_"
         />
       </svg>
-      <input ref={focus} className={styles.input} placeholder="Поиск Пиццы..." value={inputValueTmp} onChange={(e) => onChangeSearch(e.target.value)} />
+      <input ref={focus} className={styles.input} placeholder="Поиск Пиццы..." value={inputValueTmp} onChange={(event) => onChangeSearch(event)} />
       {searchValue && (
         <svg className={styles.clear} onClick={onClickClear} version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <g id="grid_system" />

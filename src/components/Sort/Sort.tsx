@@ -1,36 +1,37 @@
 import React from "react";
-import { setSortType } from "../../redux/slice/filterSlice";
+import { setSortBy } from "../../redux/slice/filterSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { selectSort } from "../../redux/slice/filterSlice";
+import { IsortBy } from "../../redux/slice/filterSlice";
+import { sortPropertyEnum } from "../../redux/slice/filterSlice";
 
-export const listSort = [
-  { name: "популярности (ASK)", sortProperty: "rating" },
-  { name: "популярности (DESK)", sortProperty: "-rating" },
-  { name: "цене (ASK)", sortProperty: "price" },
-  { name: "цене (DESK)", sortProperty: "-price" },
-  { name: "алфавиту (ASK)", sortProperty: "title" },
-  { name: "алфавиту (DESK)", sortProperty: "-title" },
+export const listSort: IsortBy[] = [
+  { name: "популярности (ASK)", sortProperty: sortPropertyEnum.PRICE_ASK },
+  { name: "популярности (DESK)", sortProperty: sortPropertyEnum.PRICE_DESK },
+  { name: "цене (ASK)", sortProperty: sortPropertyEnum.PRICE_ASK },
+  { name: "цене (DESK)", sortProperty: sortPropertyEnum.PRICE_DESK },
+  { name: "алфавиту (ASK)", sortProperty: sortPropertyEnum.TITLE_ASK },
+  { name: "алфавиту (DESK)", sortProperty: sortPropertyEnum.TITLE_DESK },
 ];
 
-export const Sort = () => {
+export const Sort: React.FC = () => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const dispatch = useDispatch();
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   const sortType = useSelector(selectSort);
 
-  const handleChangeClick = (obj) => {
-    dispatch(setSortType(obj));
+  const handleChangeClick = (obj: IsortBy) => {
+    dispatch(setSortBy(obj));
     setVisiblePopup(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = (e: MouseEvent) => {
       const path = e.composedPath();
 
       if (sortRef.current && !path.includes(sortRef.current)) {
         setVisiblePopup(false);
-        console.log("setVisiblePopup");
       }
     };
 
