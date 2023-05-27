@@ -13,7 +13,7 @@ export const listSort: IsortBy[] = [
   { name: "алфавиту (DESK)", sortProperty: sortPropertyEnum.TITLE_DESK },
 ];
 
-export const Sort: React.FC = React.memo(() => {
+const Sort: React.FC = React.memo(() => {
   const [visiblePopup, setVisiblePopup] = React.useState(false);
   const dispatch = useDispatch();
   const sortRef = React.useRef<HTMLDivElement>(null);
@@ -67,3 +67,5 @@ export const Sort: React.FC = React.memo(() => {
     </div>
   );
 });
+
+export default Sort;

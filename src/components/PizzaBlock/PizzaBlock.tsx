@@ -7,7 +7,7 @@ import { IPizza } from "../../redux/pizza/types";
 
 export const typesPizaa = ["Тонкое", "Традиционное"];
 
-export const PizzaBlock: React.FC<IPizza> = ({ id, imageUrl, title, price, sizes, types }) => {
+const PizzaBlock: React.FC<IPizza> = ({ id, imageUrl, title, price, sizes, types }) => {
   const dispatch = useDispatch();
   const item = useSelector(selectCartItemById(id));
 
@@ -64,3 +64,5 @@ export const PizzaBlock: React.FC<IPizza> = ({ id, imageUrl, title, price, sizes
     </div>
   );
 };
+
+export default PizzaBlock;

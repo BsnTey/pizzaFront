@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectFilter } from "../../redux/filter/selectors";
 import { setSearch } from "../../redux/filter/slice";
 
-export const Search: React.FC = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
   const focus = React.useRef<HTMLInputElement>(null);
   const { searchValue } = useSelector(selectFilter);
@@ -49,3 +49,5 @@ export const Search: React.FC = () => {
     </div>
   );
 };
+
+export default Search;

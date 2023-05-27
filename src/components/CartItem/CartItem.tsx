@@ -4,7 +4,7 @@ import { typesPizaa } from "../PizzaBlock/PizzaBlock";
 import { ICartItem } from "../../redux/cart/types";
 import { addItem, removeItemQuantity, removeItems } from "../../redux/cart/slice";
 
-export const CartItem: React.FC<ICartItem> = ({ id, imageUrl, title, price, size, type, quantity }) => {
+const CartItem: React.FC<ICartItem> = ({ id, imageUrl, title, price, size, type, quantity }) => {
   const dispatch = useDispatch();
 
   const onClickAdd = () => {
@@ -77,3 +77,4 @@ export const CartItem: React.FC<ICartItem> = ({ id, imageUrl, title, price, size
     </div>
   );
 };
+export default CartItem;

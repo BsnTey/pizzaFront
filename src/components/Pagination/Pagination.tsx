@@ -6,7 +6,7 @@ type ICategoriesProps = {
   onChangePage: (page: number) => void;
 };
 
-export const Pagination: React.FC<ICategoriesProps> = ({ onChangePage }) => {
+const Pagination: React.FC<ICategoriesProps> = ({ onChangePage }) => {
   return (
     <ReactPaginate
       className={styles.root}
@@ -20,3 +20,5 @@ export const Pagination: React.FC<ICategoriesProps> = ({ onChangePage }) => {
     />
   );
 };
+
+export default Pagination;
